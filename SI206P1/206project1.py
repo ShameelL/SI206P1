@@ -54,12 +54,13 @@ def findDay(a):
 
 # Find the average age (rounded) of the Students
 def findAge(a):
-# Input: list of dictionaries
-# Output: Return the day of month (1-31) that is the
-# most often seen in the DOB
-
 	#Your code here:
-	pass
+	lst = []
+	for element in a:
+		lst.append(element['DOB'])
+	for element in lst:
+		x = element.split('/')
+		
 
 #Similar to mySort, but instead of returning single
 #Student, all of the sorted data is saved to a csv file.
