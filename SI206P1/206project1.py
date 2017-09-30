@@ -1,5 +1,7 @@
 import os
 import filecmp
+from datetime import date
+from datetime import datetime
 
 def getData(file):
 	lst = []
@@ -51,27 +53,22 @@ def findDay(a):
 			dic[x[1]] += 1
 	return int(max(dic, key = dic.get))
 	
-
-# Find the average age (rounded) of the Students
 def findAge(a):
-	#Your code here:
 	lst = []
-	for element in a:
-		lst.append(element['DOB'])
-	for element in lst:
-		x = element.split('/')
-		
+	for DOB in a:
+		date_of_birth = DOB["DOB"]
+		today = datetime.today()
+		born = datetime.strptime(date_of_birth,'%m/%d/%Y')
+		lst.append(today.year - born.year - ((today.month, today.day) < (born.month, born.day)))
+	return round((sum(lst)/len(lst)))
 
-#Similar to mySort, but instead of returning single
-#Student, all of the sorted data is saved to a csv file.
 def mySortPrint(a,col,fileName):
-#Input: list of dictionaries, key to sort by and output file name
-#Output: None
-
-	#Your code here:
-	pass
-
-
+	sorted_file = sorted(a, key = lambda x: x[col])
+	file = open(fileName, 'w')
+	person = sorted_file[0]
+	for person in sorted_file:
+		file.write(person['First'] + ',' + person["Last"] + ',' + person["Email"] + '\n')
+	file.close()
 
 ################################################################
 ## DO NOT MODIFY ANY CODE BELOW THIS
